@@ -1,83 +1,143 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Management;
 using System.Runtime.InteropServices;
+using Cassia;
+using System.Security.Principal;
 
-public class clsRDP
+class clsRDP
 {
-    public int getSessionInfo(string serverIP,out string outMessage)
+    public List<clsRDPModel> getSessionListOnLocalhost(string[] accountExceptions=null)
+    {
+        List<clsRDPModel> result = new List<clsRDPModel>();
+        ITerminalServicesManager manager = new TerminalServicesManager();
+        //using (ITerminalServer server = manager.GetRemoteServer(serverIP))
+        using (ITerminalServer server = manager.GetLocalServer())
+        {
+            IList<ITerminalServicesSession> sessions;
+            sessions = server.GetSessions();
+            server.Open();
+            foreach (ITerminalServicesSession session in sessions)
+            {
+                NTAccount account = session.UserAccount;
+                if (account != null)
+                {
+                    if(!getAccountIsException(accountExceptions, account.ToString()))
+                    {
+                        result.Add(new clsRDPModel(
+                            session.ConnectionState.ToString(), 
+                            session.DomainName,
+                            session.UserName,
+                            (session.ClientIPAddress!=null? session.ClientIPAddress.ToString():""),
+                            session.ConnectTime,
+                            (session.ConnectionState==ConnectionState.Active? null : session.DisconnectTime),
+                            session.SessionId));
+                        /*
+                        if (session.ConnectionState == ConnectionState.Active)
+                        {
+                            result.Add(new clsRDPModel("Active", account.ToString()));
+                        }
+                        else
+                        {
+                            result.Add(new clsRDPModel("INACTIVE", account.ToString()));
+                        }
+                        */
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    private bool getAccountIsException(string[] accountExceptions,string account)
     {
         #region Variable
-        string computer = @"\\" + serverIP + @"\";
-        outMessage = string.Empty;
+        var result = false;
+        string[] accounts;
         #endregion
+        #region Procedure
         try
         {
-            ConnectionOptions co = new ConnectionOptions();
-            co.Impersonation = ImpersonationLevel.Impersonate;
-            co.Authentication = AuthenticationLevel.Packet;
-            co.Timeout = new TimeSpan(0, 0, 30);
-            co.EnablePrivileges = true;
-            co.Username = @"BDMS\nithi.re";
-            co.Password = "Offjun10r";
-
-            ManagementPath mp = new ManagementPath();
-            mp.NamespacePath = @"\root\cimv2";
-            mp.Server = serverIP;               ///Regard this!!!!
-
-            ManagementScope ms = new ManagementScope(mp, co);
-            ms.Connect();
-
-            ManagementObjectSearcher searcher;
-            searcher = new ManagementObjectSearcher
-            (
-                //ms, new ObjectQuery("select * from Win32_DisplayConfiguration")
-                ms, new ObjectQuery(computer + @"root\CIMV2", "SELECT * FROM Win32_TerminalService")
-                //ms, new ObjectQuery(computer + @"root\CIMV2", "select * from Win32_DisplayConfiguration")
-            );
-            //ManagementObjectSearcher searcher = new ManagementObjectSearcher(computer + @"root\CIMV2", "SELECT * FROM Win32_TerminalService");
-            ManagementObjectCollection colItems = searcher.Get();
-            //Console.WriteLine("{0} instance{1}", colItems.Count, (colItems.Count == 1 ? String.Empty : "s"));
-            //Console.WriteLine();
-
-            foreach (ManagementObject queryObj in colItems)
+            if (accountExceptions!=null && accountExceptions.Length > 0)
             {
-                outMessage += string.Format("AcceptPause             : {0}" + Environment.NewLine, queryObj["AcceptPause"]);
-                outMessage += string.Format("AcceptStop              : {0}" + Environment.NewLine, queryObj["AcceptStop"]);
-                outMessage += string.Format("Caption                 : {0}" + Environment.NewLine, queryObj["Caption"]);
-                outMessage += string.Format("CheckPoint              : {0}" + Environment.NewLine, queryObj["CheckPoint"]);
-                outMessage += string.Format("CreationClassName       : {0}" + Environment.NewLine, queryObj["CreationClassName"]);
-                outMessage += string.Format("Description             : {0}" + Environment.NewLine, queryObj["Description"]);
-                outMessage += string.Format("DesktopInteract         : {0}" + Environment.NewLine, queryObj["DesktopInteract"]);
-                outMessage += string.Format("DisconnectedSessions    : {0}" + Environment.NewLine, queryObj["DisconnectedSessions"]);
-                outMessage += string.Format("DisplayName             : {0}" + Environment.NewLine, queryObj["DisplayName"]);
-                outMessage += string.Format("ErrorControl            : {0}" + Environment.NewLine, queryObj["ErrorControl"]);
-                outMessage += string.Format("ExitCode                : {0}" + Environment.NewLine, queryObj["ExitCode"]);
-                outMessage += string.Format("InstallDate             : {0}" + Environment.NewLine, queryObj["InstallDate"]);
-                outMessage += string.Format("Name                    : {0}" + Environment.NewLine, queryObj["Name"]);
-                outMessage += string.Format("PathName                : {0}" + Environment.NewLine, queryObj["PathName"]);
-                outMessage += string.Format("ProcessId               : {0}" + Environment.NewLine, queryObj["ProcessId"]);
-                outMessage += string.Format("ServiceSpecificExitCode : {0}" + Environment.NewLine, queryObj["ServiceSpecificExitCode"]);
-                outMessage += string.Format("ServiceType             : {0}" + Environment.NewLine, queryObj["ServiceType"]);
-                outMessage += string.Format("Started                 : {0}" + Environment.NewLine, queryObj["Started"]);
-                outMessage += string.Format("StartMode               : {0}" + Environment.NewLine, queryObj["StartMode"]);
-                outMessage += string.Format("StartName               : {0}" + Environment.NewLine, queryObj["StartName"]);
-                outMessage += string.Format("State                   : {0}" + Environment.NewLine, queryObj["State"]);
-                outMessage += string.Format("Status                  : {0}" + Environment.NewLine, queryObj["Status"]);
-                outMessage += string.Format("SystemCreationClassName : {0}" + Environment.NewLine, queryObj["SystemCreationClassName"]);
-                outMessage += string.Format("SystemName              : {0}" + Environment.NewLine, queryObj["SystemName"]);
-                outMessage += string.Format("TagId                   : {0}" + Environment.NewLine, queryObj["TagId"]);
-                outMessage += string.Format("TotalSessions           : {0}" + Environment.NewLine, queryObj["TotalSessions"]);
-                outMessage += string.Format("WaitHint                : {0}" + Environment.NewLine, queryObj["WaitHint"]);
+                accounts = account.Split(new string[] { @"\" }, StringSplitOptions.None);
+                for (int i = 0; i < accountExceptions.Length; i++)
+                {
+                    if (accounts.Length > 1)
+                    {
+                        if (accountExceptions[i].ToLower().Trim() == accounts[1].ToLower().Trim())
+                        {
+                            result = true;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (accountExceptions[i].ToLower().Trim() == account.ToLower().Trim())
+                        {
+                            result = true;
+                            break;
+                        }
+                    }
+                }
             }
-            return 0;
         }
-        catch (Exception e)
-        {
-            Console.Error.WriteLine("An error occurred while querying WMI: {0}", e.Message);
-            return 1;
-        }
+        catch (Exception) { }
+        #endregion
+        return result;
+    }
+}
+public class clsRDPModel
+{
+    public clsRDPModel(string Status,string Domain,string Username,string IPAddress,DateTime? ConnectTime,DateTime? DisconnectTime,int SessionID)
+    {
+        _status = Status;
+        _domain = Domain;
+        _username = Username;
+        _ipAddress = IPAddress;
+        _connectTime = ConnectTime;
+        _disconnectTime = DisconnectTime;
+        _sessionID = SessionID;
+    }
+    private string _status;
+    public string Status
+    {
+        get { return _status; }
+        set { _status = value; }
+    }
+    private string _domain;
+    public string Domain
+    {
+        get { return _domain; }
+        set { _domain = value; }
+    }
+    private string _username;
+    public string Username
+    {
+        get { return _username; }
+        set { _username = value; }
+    }
+    private string _ipAddress;
+    public string IPAddress
+    {
+        get { return _ipAddress; }
+        set { _ipAddress = value; }
+    }
+    private DateTime? _connectTime;
+    public DateTime? ConnectTime
+    {
+        get { return _connectTime; }
+        set { _connectTime = value; }
+    }
+    private DateTime? _disconnectTime;
+    public DateTime? DisconnectTime
+    {
+        get { return _disconnectTime; }
+        set { _disconnectTime = value; }
+    }
+    private int _sessionID;
+    public int SessionID
+    {
+        get { return _sessionID; }
+        set { _sessionID = value; }
     }
 }

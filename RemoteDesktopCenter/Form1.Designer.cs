@@ -49,7 +49,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
-            this.txtRDPDetail = new System.Windows.Forms.TextBox();
+            this.tmDefault = new System.Windows.Forms.Timer(this.components);
+            this.tbContent = new System.Windows.Forms.TableLayoutPanel();
+            this.lvSession = new System.Windows.Forms.ListView();
+            this.clStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clUsername = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clIPAddress = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clConnectTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clDisconnectTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clSessionID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clDomain = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtDebug = new System.Windows.Forms.TextBox();
             this.tbDefault.SuspendLayout();
             this.tbHeader.SuspendLayout();
             this.tbFooter.SuspendLayout();
@@ -57,6 +67,7 @@
             this.tbMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).BeginInit();
             this.tbAccount.SuspendLayout();
+            this.tbContent.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbDefault
@@ -66,7 +77,7 @@
             this.tbDefault.Controls.Add(this.tbHeader, 0, 0);
             this.tbDefault.Controls.Add(this.tbFooter, 0, 3);
             this.tbDefault.Controls.Add(this.tbMenu, 0, 1);
-            this.tbDefault.Controls.Add(this.txtRDPDetail, 0, 2);
+            this.tbDefault.Controls.Add(this.tbContent, 0, 2);
             this.tbDefault.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbDefault.Location = new System.Drawing.Point(0, 0);
             this.tbDefault.Margin = new System.Windows.Forms.Padding(0);
@@ -76,7 +87,7 @@
             this.tbDefault.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tbDefault.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbDefault.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbDefault.Size = new System.Drawing.Size(558, 262);
+            this.tbDefault.Size = new System.Drawing.Size(558, 312);
             this.tbDefault.TabIndex = 0;
             // 
             // tbHeader
@@ -108,7 +119,7 @@
             this.tbFooter.Controls.Add(this.lblCredit, 0, 0);
             this.tbFooter.Controls.Add(this.lblFooterDetail, 1, 0);
             this.tbFooter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbFooter.Location = new System.Drawing.Point(0, 239);
+            this.tbFooter.Location = new System.Drawing.Point(0, 289);
             this.tbFooter.Margin = new System.Windows.Forms.Padding(0);
             this.tbFooter.Name = "tbFooter";
             this.tbFooter.Padding = new System.Windows.Forms.Padding(5);
@@ -269,9 +280,9 @@
             this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tbAccount.Controls.Add(this.label1, 0, 0);
+            this.tbAccount.Controls.Add(this.button1, 4, 0);
             this.tbAccount.Controls.Add(this.label2, 2, 0);
             this.tbAccount.Controls.Add(this.txtUsername, 1, 0);
-            this.tbAccount.Controls.Add(this.button1, 4, 0);
             this.tbAccount.Controls.Add(this.txtPassword, 3, 0);
             this.tbAccount.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbAccount.Location = new System.Drawing.Point(0, 0);
@@ -318,25 +329,93 @@
             this.txtPassword.Size = new System.Drawing.Size(120, 20);
             this.txtPassword.TabIndex = 2;
             // 
-            // txtRDPDetail
+            // tmDefault
             // 
-            this.txtRDPDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtRDPDetail.Location = new System.Drawing.Point(3, 116);
-            this.txtRDPDetail.Multiline = true;
-            this.txtRDPDetail.Name = "txtRDPDetail";
-            this.txtRDPDetail.Size = new System.Drawing.Size(552, 120);
-            this.txtRDPDetail.TabIndex = 3;
+            this.tmDefault.Interval = 1000;
+            this.tmDefault.Tick += new System.EventHandler(this.tmDefault_Tick);
+            // 
+            // tbContent
+            // 
+            this.tbContent.AutoSize = true;
+            this.tbContent.ColumnCount = 1;
+            this.tbContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbContent.Controls.Add(this.lvSession, 0, 0);
+            this.tbContent.Controls.Add(this.txtDebug, 0, 1);
+            this.tbContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbContent.Location = new System.Drawing.Point(3, 116);
+            this.tbContent.Name = "tbContent";
+            this.tbContent.RowCount = 2;
+            this.tbContent.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbContent.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbContent.Size = new System.Drawing.Size(552, 170);
+            this.tbContent.TabIndex = 3;
+            // 
+            // lvSession
+            // 
+            this.lvSession.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.clStatus,
+            this.clDomain,
+            this.clUsername,
+            this.clIPAddress,
+            this.clConnectTime,
+            this.clDisconnectTime,
+            this.clSessionID});
+            this.lvSession.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvSession.Location = new System.Drawing.Point(3, 3);
+            this.lvSession.Name = "lvSession";
+            this.lvSession.Size = new System.Drawing.Size(546, 97);
+            this.lvSession.TabIndex = 0;
+            this.lvSession.UseCompatibleStateImageBehavior = false;
+            this.lvSession.View = System.Windows.Forms.View.Details;
+            // 
+            // clStatus
+            // 
+            this.clStatus.Text = "Status";
+            // 
+            // clUsername
+            // 
+            this.clUsername.Text = "Username";
+            // 
+            // clIPAddress
+            // 
+            this.clIPAddress.Text = "IPAddress";
+            // 
+            // clConnectTime
+            // 
+            this.clConnectTime.Text = "ConnectTime";
+            // 
+            // clDisconnectTime
+            // 
+            this.clDisconnectTime.Text = "DisconnectTime";
+            // 
+            // clSessionID
+            // 
+            this.clSessionID.Text = "SessionID";
+            // 
+            // clDomain
+            // 
+            this.clDomain.Text = "Domain";
+            // 
+            // txtDebug
+            // 
+            this.txtDebug.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDebug.Location = new System.Drawing.Point(3, 106);
+            this.txtDebug.Multiline = true;
+            this.txtDebug.Name = "txtDebug";
+            this.txtDebug.Size = new System.Drawing.Size(546, 61);
+            this.txtDebug.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(558, 262);
+            this.ClientSize = new System.Drawing.Size(558, 312);
             this.Controls.Add(this.tbDefault);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RemoteDesktopCenter";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tbDefault.ResumeLayout(false);
@@ -352,6 +431,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).EndInit();
             this.tbAccount.ResumeLayout(false);
             this.tbAccount.PerformLayout();
+            this.tbContent.ResumeLayout(false);
+            this.tbContent.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -377,7 +458,17 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.TextBox txtRDPDetail;
+        private System.Windows.Forms.Timer tmDefault;
+        private System.Windows.Forms.TableLayoutPanel tbContent;
+        private System.Windows.Forms.ListView lvSession;
+        private System.Windows.Forms.ColumnHeader clStatus;
+        private System.Windows.Forms.ColumnHeader clUsername;
+        private System.Windows.Forms.ColumnHeader clIPAddress;
+        private System.Windows.Forms.ColumnHeader clConnectTime;
+        private System.Windows.Forms.ColumnHeader clDisconnectTime;
+        private System.Windows.Forms.ColumnHeader clSessionID;
+        private System.Windows.Forms.ColumnHeader clDomain;
+        private System.Windows.Forms.TextBox txtDebug;
     }
 }
 

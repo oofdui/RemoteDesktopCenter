@@ -11,8 +11,15 @@ namespace RemoteDesktopCenter
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            if (args.Length > 0)
+            {
+                if (args[0].Trim().ToLower() == "server")
+                {
+                    clsGlobal.ServerMode = true;
+                }
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

@@ -36,6 +36,12 @@ public static class clsGlobal
         get { return _cs; }
         set { _cs = value; }
     }
+    private static bool _serverMode = false;
+    public static bool ServerMode
+    {
+        get { return _serverMode; }
+        set { _serverMode = value; }
+    }
     static public string ExecutePathBuilder()
     {
         #region Variable
