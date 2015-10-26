@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Report));
             this.tbDefault = new System.Windows.Forms.TableLayoutPanel();
             this.tbHeader = new System.Windows.Forms.TableLayoutPanel();
+            this.pbDefault = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.lblHeader = new System.Windows.Forms.Label();
             this.lblSubHeader = new System.Windows.Forms.Label();
@@ -38,25 +39,25 @@
             this.lblCredit = new System.Windows.Forms.Label();
             this.lblFooterDetail = new System.Windows.Forms.Label();
             this.tbMenu = new System.Windows.Forms.TableLayoutPanel();
+            this.btClose = new System.Windows.Forms.Button();
+            this.btMinimize = new System.Windows.Forms.Button();
             this.tbAccount = new System.Windows.Forms.TableLayoutPanel();
             this.tbContent = new System.Windows.Forms.TableLayoutPanel();
             this.gvDefault = new System.Windows.Forms.DataGridView();
-            this.pbDefault = new System.Windows.Forms.PictureBox();
-            this.btClose = new System.Windows.Forms.Button();
-            this.btMinimize = new System.Windows.Forms.Button();
             this.tbSearch = new System.Windows.Forms.TableLayoutPanel();
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.dtTo = new System.Windows.Forms.DateTimePicker();
             this.btSearch = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btExport = new System.Windows.Forms.Button();
             this.tbDefault.SuspendLayout();
             this.tbHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tbFooter.SuspendLayout();
             this.tbMenu.SuspendLayout();
             this.tbContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDefault)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).BeginInit();
             this.tbSearch.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,7 +78,7 @@
             this.tbDefault.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tbDefault.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbDefault.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbDefault.Size = new System.Drawing.Size(606, 492);
+            this.tbDefault.Size = new System.Drawing.Size(693, 492);
             this.tbDefault.TabIndex = 1;
             // 
             // tbHeader
@@ -96,8 +97,20 @@
             this.tbHeader.Padding = new System.Windows.Forms.Padding(5);
             this.tbHeader.RowCount = 1;
             this.tbHeader.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbHeader.Size = new System.Drawing.Size(606, 80);
+            this.tbHeader.Size = new System.Drawing.Size(693, 80);
             this.tbHeader.TabIndex = 0;
+            // 
+            // pbDefault
+            // 
+            this.pbDefault.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pbDefault.BackColor = System.Drawing.Color.Transparent;
+            this.pbDefault.Image = global::RemoteDesktopCenter.Properties.Resources.Desktop_icon_64;
+            this.pbDefault.Location = new System.Drawing.Point(8, 8);
+            this.pbDefault.Name = "pbDefault";
+            this.pbDefault.Size = new System.Drawing.Size(64, 64);
+            this.pbDefault.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbDefault.TabIndex = 0;
+            this.pbDefault.TabStop = false;
             // 
             // tableLayoutPanel2
             // 
@@ -112,7 +125,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(520, 64);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(607, 64);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // lblHeader
@@ -157,7 +170,7 @@
             this.tbFooter.Padding = new System.Windows.Forms.Padding(5);
             this.tbFooter.RowCount = 1;
             this.tbFooter.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbFooter.Size = new System.Drawing.Size(606, 23);
+            this.tbFooter.Size = new System.Drawing.Size(693, 23);
             this.tbFooter.TabIndex = 1;
             // 
             // lblCredit
@@ -176,7 +189,7 @@
             this.lblFooterDetail.AutoSize = true;
             this.lblFooterDetail.BackColor = System.Drawing.Color.Transparent;
             this.lblFooterDetail.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblFooterDetail.Location = new System.Drawing.Point(534, 5);
+            this.lblFooterDetail.Location = new System.Drawing.Point(621, 5);
             this.lblFooterDetail.Name = "lblFooterDetail";
             this.lblFooterDetail.Size = new System.Drawing.Size(64, 13);
             this.lblFooterDetail.TabIndex = 1;
@@ -199,67 +212,8 @@
             this.tbMenu.Name = "tbMenu";
             this.tbMenu.RowCount = 1;
             this.tbMenu.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbMenu.Size = new System.Drawing.Size(606, 20);
+            this.tbMenu.Size = new System.Drawing.Size(693, 20);
             this.tbMenu.TabIndex = 2;
-            // 
-            // tbAccount
-            // 
-            this.tbAccount.AutoSize = true;
-            this.tbAccount.ColumnCount = 5;
-            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tbAccount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbAccount.Location = new System.Drawing.Point(0, 0);
-            this.tbAccount.Margin = new System.Windows.Forms.Padding(0);
-            this.tbAccount.Name = "tbAccount";
-            this.tbAccount.Padding = new System.Windows.Forms.Padding(2);
-            this.tbAccount.RowCount = 1;
-            this.tbAccount.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbAccount.Size = new System.Drawing.Size(570, 20);
-            this.tbAccount.TabIndex = 1;
-            // 
-            // tbContent
-            // 
-            this.tbContent.AutoSize = true;
-            this.tbContent.ColumnCount = 1;
-            this.tbContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbContent.Controls.Add(this.gvDefault, 0, 1);
-            this.tbContent.Controls.Add(this.tbSearch, 0, 0);
-            this.tbContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbContent.Location = new System.Drawing.Point(3, 103);
-            this.tbContent.Name = "tbContent";
-            this.tbContent.RowCount = 2;
-            this.tbContent.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbContent.Size = new System.Drawing.Size(600, 363);
-            this.tbContent.TabIndex = 3;
-            // 
-            // gvDefault
-            // 
-            this.gvDefault.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.gvDefault.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.gvDefault.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvDefault.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gvDefault.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.gvDefault.Location = new System.Drawing.Point(3, 38);
-            this.gvDefault.Name = "gvDefault";
-            this.gvDefault.Size = new System.Drawing.Size(594, 322);
-            this.gvDefault.TabIndex = 0;
-            // 
-            // pbDefault
-            // 
-            this.pbDefault.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pbDefault.BackColor = System.Drawing.Color.Transparent;
-            this.pbDefault.Image = global::RemoteDesktopCenter.Properties.Resources.Desktop_icon_64;
-            this.pbDefault.Location = new System.Drawing.Point(8, 8);
-            this.pbDefault.Name = "pbDefault";
-            this.pbDefault.Size = new System.Drawing.Size(64, 64);
-            this.pbDefault.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pbDefault.TabIndex = 0;
-            this.pbDefault.TabStop = false;
             // 
             // btClose
             // 
@@ -271,7 +225,7 @@
             this.btClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btClose.Image = global::RemoteDesktopCenter.Properties.Resources.icClose1;
-            this.btClose.Location = new System.Drawing.Point(588, 2);
+            this.btClose.Location = new System.Drawing.Point(675, 2);
             this.btClose.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(16, 16);
@@ -289,7 +243,7 @@
             this.btMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btMinimize.Image = global::RemoteDesktopCenter.Properties.Resources.icMinimize;
-            this.btMinimize.Location = new System.Drawing.Point(570, 2);
+            this.btMinimize.Location = new System.Drawing.Point(657, 2);
             this.btMinimize.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
             this.btMinimize.Name = "btMinimize";
             this.btMinimize.Size = new System.Drawing.Size(16, 16);
@@ -298,25 +252,75 @@
             this.btMinimize.Visible = false;
             this.btMinimize.Click += new System.EventHandler(this.btMinimize_Click);
             // 
+            // tbAccount
+            // 
+            this.tbAccount.AutoSize = true;
+            this.tbAccount.ColumnCount = 5;
+            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tbAccount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbAccount.Location = new System.Drawing.Point(0, 0);
+            this.tbAccount.Margin = new System.Windows.Forms.Padding(0);
+            this.tbAccount.Name = "tbAccount";
+            this.tbAccount.Padding = new System.Windows.Forms.Padding(2);
+            this.tbAccount.RowCount = 1;
+            this.tbAccount.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbAccount.Size = new System.Drawing.Size(657, 20);
+            this.tbAccount.TabIndex = 1;
+            // 
+            // tbContent
+            // 
+            this.tbContent.AutoSize = true;
+            this.tbContent.ColumnCount = 1;
+            this.tbContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbContent.Controls.Add(this.gvDefault, 0, 1);
+            this.tbContent.Controls.Add(this.tbSearch, 0, 0);
+            this.tbContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbContent.Location = new System.Drawing.Point(3, 103);
+            this.tbContent.Name = "tbContent";
+            this.tbContent.RowCount = 2;
+            this.tbContent.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbContent.Size = new System.Drawing.Size(687, 363);
+            this.tbContent.TabIndex = 3;
+            // 
+            // gvDefault
+            // 
+            this.gvDefault.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.gvDefault.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.gvDefault.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.gvDefault.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvDefault.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gvDefault.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.gvDefault.Location = new System.Drawing.Point(3, 38);
+            this.gvDefault.Name = "gvDefault";
+            this.gvDefault.Size = new System.Drawing.Size(681, 322);
+            this.gvDefault.TabIndex = 0;
+            // 
             // tbSearch
             // 
             this.tbSearch.AutoSize = true;
-            this.tbSearch.ColumnCount = 5;
+            this.tbSearch.ColumnCount = 6;
             this.tbSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tbSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tbSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tbSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tbSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tbSearch.Controls.Add(this.dtFrom, 1, 0);
             this.tbSearch.Controls.Add(this.dtTo, 2, 0);
-            this.tbSearch.Controls.Add(this.btSearch, 4, 0);
             this.tbSearch.Controls.Add(this.label1, 0, 0);
+            this.tbSearch.Controls.Add(this.btSearch, 5, 0);
+            this.tbSearch.Controls.Add(this.btExport, 4, 0);
             this.tbSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbSearch.Location = new System.Drawing.Point(3, 3);
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.RowCount = 1;
             this.tbSearch.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbSearch.Size = new System.Drawing.Size(594, 29);
+            this.tbSearch.Size = new System.Drawing.Size(681, 29);
             this.tbSearch.TabIndex = 1;
             // 
             // dtFrom
@@ -327,7 +331,7 @@
             this.dtFrom.Location = new System.Drawing.Point(85, 4);
             this.dtFrom.Name = "dtFrom";
             this.dtFrom.ShowCheckBox = true;
-            this.dtFrom.Size = new System.Drawing.Size(200, 20);
+            this.dtFrom.Size = new System.Drawing.Size(150, 20);
             this.dtFrom.TabIndex = 0;
             // 
             // dtTo
@@ -335,16 +339,16 @@
             this.dtTo.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.dtTo.CustomFormat = "yyyy-MM-dd HH:mm";
             this.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtTo.Location = new System.Drawing.Point(291, 4);
+            this.dtTo.Location = new System.Drawing.Point(241, 4);
             this.dtTo.Name = "dtTo";
             this.dtTo.ShowCheckBox = true;
-            this.dtTo.Size = new System.Drawing.Size(200, 20);
+            this.dtTo.Size = new System.Drawing.Size(150, 20);
             this.dtTo.TabIndex = 1;
             // 
             // btSearch
             // 
             this.btSearch.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btSearch.Location = new System.Drawing.Point(516, 3);
+            this.btSearch.Location = new System.Drawing.Point(603, 3);
             this.btSearch.Name = "btSearch";
             this.btSearch.Size = new System.Drawing.Size(75, 23);
             this.btSearch.TabIndex = 2;
@@ -362,12 +366,24 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "ConnectWhen";
             // 
+            // btExport
+            // 
+            this.btExport.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btExport.Enabled = false;
+            this.btExport.Location = new System.Drawing.Point(522, 3);
+            this.btExport.Name = "btExport";
+            this.btExport.Size = new System.Drawing.Size(75, 23);
+            this.btExport.TabIndex = 2;
+            this.btExport.Text = "Export";
+            this.btExport.UseVisualStyleBackColor = true;
+            this.btExport.Click += new System.EventHandler(this.btExport_Click);
+            // 
             // Report
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(606, 492);
+            this.ClientSize = new System.Drawing.Size(693, 492);
             this.Controls.Add(this.tbDefault);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -380,6 +396,7 @@
             this.tbDefault.PerformLayout();
             this.tbHeader.ResumeLayout(false);
             this.tbHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tbFooter.ResumeLayout(false);
@@ -389,7 +406,6 @@
             this.tbContent.ResumeLayout(false);
             this.tbContent.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDefault)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).EndInit();
             this.tbSearch.ResumeLayout(false);
             this.tbSearch.PerformLayout();
             this.ResumeLayout(false);
@@ -418,5 +434,6 @@
         private System.Windows.Forms.DateTimePicker dtTo;
         private System.Windows.Forms.Button btSearch;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btExport;
     }
 }

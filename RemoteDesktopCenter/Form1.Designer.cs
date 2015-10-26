@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tbDefault = new System.Windows.Forms.TableLayoutPanel();
             this.tbHeader = new System.Windows.Forms.TableLayoutPanel();
+            this.pbDefault = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.lblHeader = new System.Windows.Forms.Label();
             this.lblSubHeader = new System.Windows.Forms.Label();
@@ -39,8 +40,11 @@
             this.lblCredit = new System.Windows.Forms.Label();
             this.lblFooterDetail = new System.Windows.Forms.Label();
             this.tbMenu = new System.Windows.Forms.TableLayoutPanel();
+            this.btClose = new System.Windows.Forms.Button();
+            this.btMinimize = new System.Windows.Forms.Button();
             this.tbAccount = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
+            this.btReport = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
@@ -57,22 +61,19 @@
             this.ttDefault = new System.Windows.Forms.ToolTip(this.components);
             this.tmDefault = new System.Windows.Forms.Timer(this.components);
             this.tmClient = new System.Windows.Forms.Timer(this.components);
-            this.pbDefault = new System.Windows.Forms.PictureBox();
-            this.btClose = new System.Windows.Forms.Button();
-            this.btMinimize = new System.Windows.Forms.Button();
-            this.btReport = new System.Windows.Forms.Button();
             this.tbDefault.SuspendLayout();
             this.tbHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tbFooter.SuspendLayout();
             this.tbMenu.SuspendLayout();
             this.tbAccount.SuspendLayout();
             this.tbContent.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).BeginInit();
             this.SuspendLayout();
             // 
             // tbDefault
             // 
+            this.tbDefault.BackColor = System.Drawing.Color.White;
             this.tbDefault.ColumnCount = 1;
             this.tbDefault.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbDefault.Controls.Add(this.tbHeader, 0, 0);
@@ -80,7 +81,7 @@
             this.tbDefault.Controls.Add(this.tbMenu, 0, 1);
             this.tbDefault.Controls.Add(this.tbContent, 0, 2);
             this.tbDefault.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbDefault.Location = new System.Drawing.Point(0, 0);
+            this.tbDefault.Location = new System.Drawing.Point(1, 1);
             this.tbDefault.Margin = new System.Windows.Forms.Padding(0);
             this.tbDefault.Name = "tbDefault";
             this.tbDefault.RowCount = 4;
@@ -88,7 +89,7 @@
             this.tbDefault.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tbDefault.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbDefault.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbDefault.Size = new System.Drawing.Size(558, 312);
+            this.tbDefault.Size = new System.Drawing.Size(556, 310);
             this.tbDefault.TabIndex = 0;
             // 
             // tbHeader
@@ -107,8 +108,20 @@
             this.tbHeader.Padding = new System.Windows.Forms.Padding(5);
             this.tbHeader.RowCount = 1;
             this.tbHeader.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbHeader.Size = new System.Drawing.Size(558, 80);
+            this.tbHeader.Size = new System.Drawing.Size(556, 80);
             this.tbHeader.TabIndex = 0;
+            // 
+            // pbDefault
+            // 
+            this.pbDefault.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pbDefault.BackColor = System.Drawing.Color.Transparent;
+            this.pbDefault.Image = global::RemoteDesktopCenter.Properties.Resources.Desktop_icon_64;
+            this.pbDefault.Location = new System.Drawing.Point(8, 8);
+            this.pbDefault.Name = "pbDefault";
+            this.pbDefault.Size = new System.Drawing.Size(64, 64);
+            this.pbDefault.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbDefault.TabIndex = 0;
+            this.pbDefault.TabStop = false;
             // 
             // tableLayoutPanel2
             // 
@@ -123,7 +136,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(472, 64);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(470, 64);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // lblHeader
@@ -162,13 +175,13 @@
             this.tbFooter.Controls.Add(this.lblCredit, 0, 0);
             this.tbFooter.Controls.Add(this.lblFooterDetail, 1, 0);
             this.tbFooter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbFooter.Location = new System.Drawing.Point(0, 289);
+            this.tbFooter.Location = new System.Drawing.Point(0, 287);
             this.tbFooter.Margin = new System.Windows.Forms.Padding(0);
             this.tbFooter.Name = "tbFooter";
             this.tbFooter.Padding = new System.Windows.Forms.Padding(5);
             this.tbFooter.RowCount = 1;
             this.tbFooter.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbFooter.Size = new System.Drawing.Size(558, 23);
+            this.tbFooter.Size = new System.Drawing.Size(556, 23);
             this.tbFooter.TabIndex = 1;
             // 
             // lblCredit
@@ -187,7 +200,7 @@
             this.lblFooterDetail.AutoSize = true;
             this.lblFooterDetail.BackColor = System.Drawing.Color.Transparent;
             this.lblFooterDetail.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblFooterDetail.Location = new System.Drawing.Point(486, 5);
+            this.lblFooterDetail.Location = new System.Drawing.Point(484, 5);
             this.lblFooterDetail.Name = "lblFooterDetail";
             this.lblFooterDetail.Size = new System.Drawing.Size(64, 13);
             this.lblFooterDetail.TabIndex = 1;
@@ -210,8 +223,44 @@
             this.tbMenu.Name = "tbMenu";
             this.tbMenu.RowCount = 1;
             this.tbMenu.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbMenu.Size = new System.Drawing.Size(558, 30);
+            this.tbMenu.Size = new System.Drawing.Size(556, 30);
             this.tbMenu.TabIndex = 2;
+            // 
+            // btClose
+            // 
+            this.btClose.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btClose.BackColor = System.Drawing.Color.Transparent;
+            this.btClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btClose.FlatAppearance.BorderSize = 0;
+            this.btClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btClose.Image = global::RemoteDesktopCenter.Properties.Resources.icClose1;
+            this.btClose.Location = new System.Drawing.Point(538, 7);
+            this.btClose.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
+            this.btClose.Name = "btClose";
+            this.btClose.Size = new System.Drawing.Size(16, 16);
+            this.btClose.TabIndex = 0;
+            this.btClose.UseVisualStyleBackColor = false;
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
+            // 
+            // btMinimize
+            // 
+            this.btMinimize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btMinimize.BackColor = System.Drawing.Color.Transparent;
+            this.btMinimize.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btMinimize.FlatAppearance.BorderSize = 0;
+            this.btMinimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btMinimize.Image = global::RemoteDesktopCenter.Properties.Resources.icMinimize;
+            this.btMinimize.Location = new System.Drawing.Point(520, 7);
+            this.btMinimize.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
+            this.btMinimize.Name = "btMinimize";
+            this.btMinimize.Size = new System.Drawing.Size(16, 16);
+            this.btMinimize.TabIndex = 0;
+            this.btMinimize.UseVisualStyleBackColor = false;
+            this.btMinimize.Click += new System.EventHandler(this.btMinimize_Click);
             // 
             // tbAccount
             // 
@@ -234,7 +283,7 @@
             this.tbAccount.Padding = new System.Windows.Forms.Padding(2);
             this.tbAccount.RowCount = 1;
             this.tbAccount.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbAccount.Size = new System.Drawing.Size(522, 30);
+            this.tbAccount.Size = new System.Drawing.Size(520, 30);
             this.tbAccount.TabIndex = 1;
             // 
             // label1
@@ -246,6 +295,24 @@
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "username";
+            // 
+            // btReport
+            // 
+            this.btReport.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btReport.BackColor = System.Drawing.Color.Transparent;
+            this.btReport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btReport.FlatAppearance.BorderSize = 0;
+            this.btReport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btReport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btReport.Image = global::RemoteDesktopCenter.Properties.Resources.icReport;
+            this.btReport.Location = new System.Drawing.Point(500, 7);
+            this.btReport.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
+            this.btReport.Name = "btReport";
+            this.btReport.Size = new System.Drawing.Size(16, 16);
+            this.btReport.TabIndex = 0;
+            this.btReport.UseVisualStyleBackColor = false;
+            this.btReport.Click += new System.EventHandler(this.btReport_Click);
             // 
             // label2
             // 
@@ -285,7 +352,7 @@
             this.tbContent.RowCount = 2;
             this.tbContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tbContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tbContent.Size = new System.Drawing.Size(552, 173);
+            this.tbContent.Size = new System.Drawing.Size(550, 171);
             this.tbContent.TabIndex = 3;
             // 
             // lvSession
@@ -302,7 +369,7 @@
             this.lvSession.FullRowSelect = true;
             this.lvSession.Location = new System.Drawing.Point(3, 3);
             this.lvSession.Name = "lvSession";
-            this.lvSession.Size = new System.Drawing.Size(546, 80);
+            this.lvSession.Size = new System.Drawing.Size(544, 79);
             this.lvSession.TabIndex = 0;
             this.lvSession.UseCompatibleStateImageBehavior = false;
             this.lvSession.View = System.Windows.Forms.View.Details;
@@ -340,9 +407,9 @@
             this.lvServerList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvServerList.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lvServerList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvServerList.Location = new System.Drawing.Point(3, 89);
+            this.lvServerList.Location = new System.Drawing.Point(3, 88);
             this.lvServerList.Name = "lvServerList";
-            this.lvServerList.Size = new System.Drawing.Size(546, 81);
+            this.lvServerList.Size = new System.Drawing.Size(544, 80);
             this.lvServerList.TabIndex = 1;
             this.lvServerList.UseCompatibleStateImageBehavior = false;
             this.lvServerList.SelectedIndexChanged += new System.EventHandler(this.lvServerList_SelectedIndexChanged);
@@ -357,82 +424,17 @@
             this.tmClient.Interval = 1000;
             this.tmClient.Tick += new System.EventHandler(this.tmClient_Tick);
             // 
-            // pbDefault
-            // 
-            this.pbDefault.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pbDefault.BackColor = System.Drawing.Color.Transparent;
-            this.pbDefault.Image = global::RemoteDesktopCenter.Properties.Resources.Desktop_icon_64;
-            this.pbDefault.Location = new System.Drawing.Point(8, 8);
-            this.pbDefault.Name = "pbDefault";
-            this.pbDefault.Size = new System.Drawing.Size(64, 64);
-            this.pbDefault.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pbDefault.TabIndex = 0;
-            this.pbDefault.TabStop = false;
-            // 
-            // btClose
-            // 
-            this.btClose.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btClose.BackColor = System.Drawing.Color.Transparent;
-            this.btClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btClose.FlatAppearance.BorderSize = 0;
-            this.btClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClose.Image = global::RemoteDesktopCenter.Properties.Resources.icClose1;
-            this.btClose.Location = new System.Drawing.Point(540, 7);
-            this.btClose.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
-            this.btClose.Name = "btClose";
-            this.btClose.Size = new System.Drawing.Size(16, 16);
-            this.btClose.TabIndex = 0;
-            this.btClose.UseVisualStyleBackColor = false;
-            this.btClose.Click += new System.EventHandler(this.btClose_Click);
-            // 
-            // btMinimize
-            // 
-            this.btMinimize.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btMinimize.BackColor = System.Drawing.Color.Transparent;
-            this.btMinimize.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btMinimize.FlatAppearance.BorderSize = 0;
-            this.btMinimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btMinimize.Image = global::RemoteDesktopCenter.Properties.Resources.icMinimize;
-            this.btMinimize.Location = new System.Drawing.Point(522, 7);
-            this.btMinimize.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
-            this.btMinimize.Name = "btMinimize";
-            this.btMinimize.Size = new System.Drawing.Size(16, 16);
-            this.btMinimize.TabIndex = 0;
-            this.btMinimize.UseVisualStyleBackColor = false;
-            this.btMinimize.Click += new System.EventHandler(this.btMinimize_Click);
-            // 
-            // btReport
-            // 
-            this.btReport.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btReport.BackColor = System.Drawing.Color.Transparent;
-            this.btReport.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btReport.FlatAppearance.BorderSize = 0;
-            this.btReport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btReport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btReport.Image = global::RemoteDesktopCenter.Properties.Resources.icReport;
-            this.btReport.Location = new System.Drawing.Point(502, 7);
-            this.btReport.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
-            this.btReport.Name = "btReport";
-            this.btReport.Size = new System.Drawing.Size(16, 16);
-            this.btReport.TabIndex = 0;
-            this.btReport.UseVisualStyleBackColor = false;
-            this.btReport.Click += new System.EventHandler(this.btReport_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(558, 312);
             this.Controls.Add(this.tbDefault);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
+            this.Padding = new System.Windows.Forms.Padding(1);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RemoteDesktopCenter";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -440,6 +442,7 @@
             this.tbDefault.PerformLayout();
             this.tbHeader.ResumeLayout(false);
             this.tbHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tbFooter.ResumeLayout(false);
@@ -449,7 +452,6 @@
             this.tbAccount.ResumeLayout(false);
             this.tbAccount.PerformLayout();
             this.tbContent.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).EndInit();
             this.ResumeLayout(false);
 
         }

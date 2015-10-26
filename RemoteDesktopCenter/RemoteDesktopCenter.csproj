@@ -39,6 +39,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Resource\Cassia.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\..\Resource\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\..\@MyUserControl\MyUserControl - Website\Bin\MySql.Data.dll</HintPath>
     </Reference>
