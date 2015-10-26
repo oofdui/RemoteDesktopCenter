@@ -11,7 +11,6 @@ class clsRDP
     {
         List<clsRDPModel> result = new List<clsRDPModel>();
         ITerminalServicesManager manager = new TerminalServicesManager();
-        //using (ITerminalServer server = manager.GetRemoteServer(serverIP))
         using (ITerminalServer server = manager.GetLocalServer())
         {
             IList<ITerminalServicesSession> sessions;
@@ -32,16 +31,6 @@ class clsRDP
                             session.ConnectTime,
                             (session.ConnectionState==ConnectionState.Active? null : session.DisconnectTime),
                             session.SessionId));
-                        /*
-                        if (session.ConnectionState == ConnectionState.Active)
-                        {
-                            result.Add(new clsRDPModel("Active", account.ToString()));
-                        }
-                        else
-                        {
-                            result.Add(new clsRDPModel("INACTIVE", account.ToString()));
-                        }
-                        */
                     }
                 }
             }

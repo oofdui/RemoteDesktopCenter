@@ -1,6 +1,6 @@
 ﻿namespace RemoteDesktopCenter
 {
-    partial class Form1
+    partial class Report
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Report));
             this.tbDefault = new System.Windows.Forms.TableLayoutPanel();
             this.tbHeader = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -40,35 +39,25 @@
             this.lblFooterDetail = new System.Windows.Forms.Label();
             this.tbMenu = new System.Windows.Forms.TableLayoutPanel();
             this.tbAccount = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtUsername = new System.Windows.Forms.TextBox();
-            this.txtPassword = new System.Windows.Forms.TextBox();
             this.tbContent = new System.Windows.Forms.TableLayoutPanel();
-            this.lvSession = new System.Windows.Forms.ListView();
-            this.clStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.clDomain = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.clUsername = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.clIPAddress = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.clConnectTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.clDisconnectTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.clSessionID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lvServerList = new System.Windows.Forms.ListView();
-            this.ttDefault = new System.Windows.Forms.ToolTip(this.components);
-            this.tmDefault = new System.Windows.Forms.Timer(this.components);
-            this.tmClient = new System.Windows.Forms.Timer(this.components);
+            this.gvDefault = new System.Windows.Forms.DataGridView();
             this.pbDefault = new System.Windows.Forms.PictureBox();
             this.btClose = new System.Windows.Forms.Button();
             this.btMinimize = new System.Windows.Forms.Button();
-            this.btReport = new System.Windows.Forms.Button();
+            this.tbSearch = new System.Windows.Forms.TableLayoutPanel();
+            this.dtFrom = new System.Windows.Forms.DateTimePicker();
+            this.dtTo = new System.Windows.Forms.DateTimePicker();
+            this.btSearch = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.tbDefault.SuspendLayout();
             this.tbHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tbFooter.SuspendLayout();
             this.tbMenu.SuspendLayout();
-            this.tbAccount.SuspendLayout();
             this.tbContent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvDefault)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).BeginInit();
+            this.tbSearch.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbDefault
@@ -88,8 +77,8 @@
             this.tbDefault.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tbDefault.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbDefault.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbDefault.Size = new System.Drawing.Size(558, 312);
-            this.tbDefault.TabIndex = 0;
+            this.tbDefault.Size = new System.Drawing.Size(606, 492);
+            this.tbDefault.TabIndex = 1;
             // 
             // tbHeader
             // 
@@ -107,7 +96,7 @@
             this.tbHeader.Padding = new System.Windows.Forms.Padding(5);
             this.tbHeader.RowCount = 1;
             this.tbHeader.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbHeader.Size = new System.Drawing.Size(558, 80);
+            this.tbHeader.Size = new System.Drawing.Size(606, 80);
             this.tbHeader.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -123,7 +112,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(472, 64);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(520, 64);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // lblHeader
@@ -136,9 +125,9 @@
             this.lblHeader.Location = new System.Drawing.Point(0, 5);
             this.lblHeader.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.lblHeader.Name = "lblHeader";
-            this.lblHeader.Size = new System.Drawing.Size(130, 31);
+            this.lblHeader.Size = new System.Drawing.Size(96, 31);
             this.lblHeader.TabIndex = 0;
-            this.lblHeader.Text = "lblHeader";
+            this.lblHeader.Text = "Report";
             // 
             // lblSubHeader
             // 
@@ -148,9 +137,9 @@
             this.lblSubHeader.Location = new System.Drawing.Point(5, 43);
             this.lblSubHeader.Margin = new System.Windows.Forms.Padding(5, 0, 3, 0);
             this.lblSubHeader.Name = "lblSubHeader";
-            this.lblSubHeader.Size = new System.Drawing.Size(71, 13);
+            this.lblSubHeader.Size = new System.Drawing.Size(92, 13);
             this.lblSubHeader.TabIndex = 1;
-            this.lblSubHeader.Text = "lblSubHeader";
+            this.lblSubHeader.Text = "รายงานการใช้งาน";
             // 
             // tbFooter
             // 
@@ -162,13 +151,13 @@
             this.tbFooter.Controls.Add(this.lblCredit, 0, 0);
             this.tbFooter.Controls.Add(this.lblFooterDetail, 1, 0);
             this.tbFooter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbFooter.Location = new System.Drawing.Point(0, 289);
+            this.tbFooter.Location = new System.Drawing.Point(0, 469);
             this.tbFooter.Margin = new System.Windows.Forms.Padding(0);
             this.tbFooter.Name = "tbFooter";
             this.tbFooter.Padding = new System.Windows.Forms.Padding(5);
             this.tbFooter.RowCount = 1;
             this.tbFooter.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbFooter.Size = new System.Drawing.Size(558, 23);
+            this.tbFooter.Size = new System.Drawing.Size(606, 23);
             this.tbFooter.TabIndex = 1;
             // 
             // lblCredit
@@ -187,7 +176,7 @@
             this.lblFooterDetail.AutoSize = true;
             this.lblFooterDetail.BackColor = System.Drawing.Color.Transparent;
             this.lblFooterDetail.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblFooterDetail.Location = new System.Drawing.Point(486, 5);
+            this.lblFooterDetail.Location = new System.Drawing.Point(534, 5);
             this.lblFooterDetail.Name = "lblFooterDetail";
             this.lblFooterDetail.Size = new System.Drawing.Size(64, 13);
             this.lblFooterDetail.TabIndex = 1;
@@ -210,23 +199,18 @@
             this.tbMenu.Name = "tbMenu";
             this.tbMenu.RowCount = 1;
             this.tbMenu.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbMenu.Size = new System.Drawing.Size(558, 30);
+            this.tbMenu.Size = new System.Drawing.Size(606, 20);
             this.tbMenu.TabIndex = 2;
             // 
             // tbAccount
             // 
             this.tbAccount.AutoSize = true;
             this.tbAccount.ColumnCount = 5;
+            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tbAccount.Controls.Add(this.label1, 0, 0);
-            this.tbAccount.Controls.Add(this.btReport, 4, 0);
-            this.tbAccount.Controls.Add(this.label2, 2, 0);
-            this.tbAccount.Controls.Add(this.txtUsername, 1, 0);
-            this.tbAccount.Controls.Add(this.txtPassword, 3, 0);
             this.tbAccount.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbAccount.Location = new System.Drawing.Point(0, 0);
             this.tbAccount.Margin = new System.Windows.Forms.Padding(0);
@@ -234,128 +218,36 @@
             this.tbAccount.Padding = new System.Windows.Forms.Padding(2);
             this.tbAccount.RowCount = 1;
             this.tbAccount.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbAccount.Size = new System.Drawing.Size(522, 30);
+            this.tbAccount.Size = new System.Drawing.Size(570, 20);
             this.tbAccount.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "username";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(190, 8);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "password";
-            // 
-            // txtUsername
-            // 
-            this.txtUsername.Location = new System.Drawing.Point(64, 5);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(120, 20);
-            this.txtUsername.TabIndex = 2;
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.Location = new System.Drawing.Point(248, 5);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(120, 20);
-            this.txtPassword.TabIndex = 2;
             // 
             // tbContent
             // 
             this.tbContent.AutoSize = true;
             this.tbContent.ColumnCount = 1;
             this.tbContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbContent.Controls.Add(this.lvSession, 0, 0);
-            this.tbContent.Controls.Add(this.lvServerList, 0, 1);
+            this.tbContent.Controls.Add(this.gvDefault, 0, 1);
+            this.tbContent.Controls.Add(this.tbSearch, 0, 0);
             this.tbContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbContent.Location = new System.Drawing.Point(3, 113);
+            this.tbContent.Location = new System.Drawing.Point(3, 103);
             this.tbContent.Name = "tbContent";
             this.tbContent.RowCount = 2;
-            this.tbContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tbContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tbContent.Size = new System.Drawing.Size(552, 173);
+            this.tbContent.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tbContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbContent.Size = new System.Drawing.Size(600, 363);
             this.tbContent.TabIndex = 3;
             // 
-            // lvSession
+            // gvDefault
             // 
-            this.lvSession.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.clStatus,
-            this.clDomain,
-            this.clUsername,
-            this.clIPAddress,
-            this.clConnectTime,
-            this.clDisconnectTime,
-            this.clSessionID});
-            this.lvSession.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvSession.FullRowSelect = true;
-            this.lvSession.Location = new System.Drawing.Point(3, 3);
-            this.lvSession.Name = "lvSession";
-            this.lvSession.Size = new System.Drawing.Size(546, 80);
-            this.lvSession.TabIndex = 0;
-            this.lvSession.UseCompatibleStateImageBehavior = false;
-            this.lvSession.View = System.Windows.Forms.View.Details;
-            // 
-            // clStatus
-            // 
-            this.clStatus.Text = "Status";
-            // 
-            // clDomain
-            // 
-            this.clDomain.Text = "Domain";
-            // 
-            // clUsername
-            // 
-            this.clUsername.Text = "Username";
-            // 
-            // clIPAddress
-            // 
-            this.clIPAddress.Text = "IPAddress";
-            // 
-            // clConnectTime
-            // 
-            this.clConnectTime.Text = "ConnectTime";
-            // 
-            // clDisconnectTime
-            // 
-            this.clDisconnectTime.Text = "DisconnectTime";
-            // 
-            // clSessionID
-            // 
-            this.clSessionID.Text = "SessionID";
-            // 
-            // lvServerList
-            // 
-            this.lvServerList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lvServerList.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lvServerList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvServerList.Location = new System.Drawing.Point(3, 89);
-            this.lvServerList.Name = "lvServerList";
-            this.lvServerList.Size = new System.Drawing.Size(546, 81);
-            this.lvServerList.TabIndex = 1;
-            this.lvServerList.UseCompatibleStateImageBehavior = false;
-            this.lvServerList.SelectedIndexChanged += new System.EventHandler(this.lvServerList_SelectedIndexChanged);
-            // 
-            // tmDefault
-            // 
-            this.tmDefault.Interval = 1000;
-            this.tmDefault.Tick += new System.EventHandler(this.tmDefault_Tick);
-            // 
-            // tmClient
-            // 
-            this.tmClient.Interval = 1000;
-            this.tmClient.Tick += new System.EventHandler(this.tmClient_Tick);
+            this.gvDefault.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.gvDefault.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.gvDefault.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvDefault.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gvDefault.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.gvDefault.Location = new System.Drawing.Point(3, 38);
+            this.gvDefault.Name = "gvDefault";
+            this.gvDefault.Size = new System.Drawing.Size(594, 322);
+            this.gvDefault.TabIndex = 0;
             // 
             // pbDefault
             // 
@@ -379,7 +271,7 @@
             this.btClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btClose.Image = global::RemoteDesktopCenter.Properties.Resources.icClose1;
-            this.btClose.Location = new System.Drawing.Point(540, 7);
+            this.btClose.Location = new System.Drawing.Point(588, 2);
             this.btClose.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(16, 16);
@@ -397,45 +289,93 @@
             this.btMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btMinimize.Image = global::RemoteDesktopCenter.Properties.Resources.icMinimize;
-            this.btMinimize.Location = new System.Drawing.Point(522, 7);
+            this.btMinimize.Location = new System.Drawing.Point(570, 2);
             this.btMinimize.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
             this.btMinimize.Name = "btMinimize";
             this.btMinimize.Size = new System.Drawing.Size(16, 16);
             this.btMinimize.TabIndex = 0;
             this.btMinimize.UseVisualStyleBackColor = false;
+            this.btMinimize.Visible = false;
             this.btMinimize.Click += new System.EventHandler(this.btMinimize_Click);
             // 
-            // btReport
+            // tbSearch
             // 
-            this.btReport.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btReport.BackColor = System.Drawing.Color.Transparent;
-            this.btReport.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btReport.FlatAppearance.BorderSize = 0;
-            this.btReport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btReport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btReport.Image = global::RemoteDesktopCenter.Properties.Resources.icReport;
-            this.btReport.Location = new System.Drawing.Point(502, 7);
-            this.btReport.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
-            this.btReport.Name = "btReport";
-            this.btReport.Size = new System.Drawing.Size(16, 16);
-            this.btReport.TabIndex = 0;
-            this.btReport.UseVisualStyleBackColor = false;
-            this.btReport.Click += new System.EventHandler(this.btReport_Click);
+            this.tbSearch.AutoSize = true;
+            this.tbSearch.ColumnCount = 5;
+            this.tbSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tbSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tbSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tbSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tbSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tbSearch.Controls.Add(this.dtFrom, 1, 0);
+            this.tbSearch.Controls.Add(this.dtTo, 2, 0);
+            this.tbSearch.Controls.Add(this.btSearch, 4, 0);
+            this.tbSearch.Controls.Add(this.label1, 0, 0);
+            this.tbSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbSearch.Location = new System.Drawing.Point(3, 3);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.RowCount = 1;
+            this.tbSearch.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbSearch.Size = new System.Drawing.Size(594, 29);
+            this.tbSearch.TabIndex = 1;
             // 
-            // Form1
+            // dtFrom
+            // 
+            this.dtFrom.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.dtFrom.CustomFormat = "yyyy-MM-dd HH:mm";
+            this.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtFrom.Location = new System.Drawing.Point(85, 4);
+            this.dtFrom.Name = "dtFrom";
+            this.dtFrom.ShowCheckBox = true;
+            this.dtFrom.Size = new System.Drawing.Size(200, 20);
+            this.dtFrom.TabIndex = 0;
+            // 
+            // dtTo
+            // 
+            this.dtTo.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.dtTo.CustomFormat = "yyyy-MM-dd HH:mm";
+            this.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtTo.Location = new System.Drawing.Point(291, 4);
+            this.dtTo.Name = "dtTo";
+            this.dtTo.ShowCheckBox = true;
+            this.dtTo.Size = new System.Drawing.Size(200, 20);
+            this.dtTo.TabIndex = 1;
+            // 
+            // btSearch
+            // 
+            this.btSearch.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btSearch.Location = new System.Drawing.Point(516, 3);
+            this.btSearch.Name = "btSearch";
+            this.btSearch.Size = new System.Drawing.Size(75, 23);
+            this.btSearch.TabIndex = 2;
+            this.btSearch.Text = "Search";
+            this.btSearch.UseVisualStyleBackColor = true;
+            this.btSearch.Click += new System.EventHandler(this.btSearch_Click);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "ConnectWhen";
+            // 
+            // Report
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(558, 312);
+            this.ClientSize = new System.Drawing.Size(606, 492);
             this.Controls.Add(this.tbDefault);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "RemoteDesktopCenter";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Name = "Report";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Report";
+            this.Load += new System.EventHandler(this.Report_Load);
             this.tbDefault.ResumeLayout(false);
             this.tbDefault.PerformLayout();
             this.tbHeader.ResumeLayout(false);
@@ -446,10 +386,12 @@
             this.tbFooter.PerformLayout();
             this.tbMenu.ResumeLayout(false);
             this.tbMenu.PerformLayout();
-            this.tbAccount.ResumeLayout(false);
-            this.tbAccount.PerformLayout();
             this.tbContent.ResumeLayout(false);
+            this.tbContent.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvDefault)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).EndInit();
+            this.tbSearch.ResumeLayout(false);
+            this.tbSearch.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -459,34 +401,22 @@
         private System.Windows.Forms.TableLayoutPanel tbDefault;
         private System.Windows.Forms.TableLayoutPanel tbHeader;
         private System.Windows.Forms.PictureBox pbDefault;
-        private System.Windows.Forms.TableLayoutPanel tbFooter;
-        private System.Windows.Forms.Label lblCredit;
-        private System.Windows.Forms.Label lblFooterDetail;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label lblHeader;
         private System.Windows.Forms.Label lblSubHeader;
+        private System.Windows.Forms.TableLayoutPanel tbFooter;
+        private System.Windows.Forms.Label lblCredit;
+        private System.Windows.Forms.Label lblFooterDetail;
         private System.Windows.Forms.TableLayoutPanel tbMenu;
         private System.Windows.Forms.Button btClose;
         private System.Windows.Forms.Button btMinimize;
-        private System.Windows.Forms.ToolTip ttDefault;
         private System.Windows.Forms.TableLayoutPanel tbAccount;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtUsername;
-        private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Timer tmDefault;
         private System.Windows.Forms.TableLayoutPanel tbContent;
-        private System.Windows.Forms.ListView lvSession;
-        private System.Windows.Forms.ColumnHeader clStatus;
-        private System.Windows.Forms.ColumnHeader clUsername;
-        private System.Windows.Forms.ColumnHeader clIPAddress;
-        private System.Windows.Forms.ColumnHeader clConnectTime;
-        private System.Windows.Forms.ColumnHeader clDisconnectTime;
-        private System.Windows.Forms.ColumnHeader clSessionID;
-        private System.Windows.Forms.ColumnHeader clDomain;
-        private System.Windows.Forms.ListView lvServerList;
-        private System.Windows.Forms.Timer tmClient;
-        private System.Windows.Forms.Button btReport;
+        private System.Windows.Forms.DataGridView gvDefault;
+        private System.Windows.Forms.TableLayoutPanel tbSearch;
+        private System.Windows.Forms.DateTimePicker dtFrom;
+        private System.Windows.Forms.DateTimePicker dtTo;
+        private System.Windows.Forms.Button btSearch;
+        private System.Windows.Forms.Label label1;
     }
 }
-

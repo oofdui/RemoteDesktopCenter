@@ -15,6 +15,7 @@ namespace RemoteDesktopCenter
         #region GlobalVariable
         int refreshSecond = int.Parse(System.Configuration.ConfigurationManager.AppSettings["refreshSecond"]);
         int refreshSecondCount = 0;
+        int maxActiveNumber = int.Parse(System.Configuration.ConfigurationManager.AppSettings["maxActiveNumber"]);
         #endregion
         public Form1()
         {
@@ -22,6 +23,7 @@ namespace RemoteDesktopCenter
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            setUsageLog();
             setDefault();
         }
         private void setDefault()
@@ -35,26 +37,31 @@ namespace RemoteDesktopCenter
             lblFooterDetail.Text = string.Format("Server : {0}", clsSQL.getAppSettingServerName(clsGlobal.cs));
             ttDefault.SetToolTip(btMinimize, "ย่อหน้าต่าง");
             ttDefault.SetToolTip(btClose, "ออกจากโปรแกรม");
+            ttDefault.SetToolTip(btReport, "ดูรายงาน");
+            if (!getAdminChecker()) btReport.Visible = false;
             txtUsername.Text = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName+@"\"+clsGlobal.WindowsLogonBuilder();
+            var savePassword = System.Configuration.ConfigurationManager.AppSettings["savePassword"];
+            if (savePassword.Trim() != "")
+            {
+                var clsSecurity = new clsSecurity();
+                txtPassword.Text = clsSecurity.Decrypt(savePassword);
+            }
             if (clsGlobal.ServerMode)
             {
                 txtUsername.Enabled = false;txtPassword.Enabled = false;
+                lvServerList.Visible = false;
+                tbContent.RowStyles[1].Height = 0;
                 tmDefault.Enabled = true;
                 tmDefault.Start();
             }
+            else
+            {
+                lvSession.Visible = false;
+                tbContent.RowStyles[0].Height = 0;
+                tmClient.Enabled = true;
+                tmClient.Start();
+            }
             #endregion
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var serverIP = "10.121.10.165";
-            Process rdcProcess = new Process();
-            rdcProcess.StartInfo.FileName = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\system32\cmdkey.exe");
-            rdcProcess.StartInfo.Arguments = "/generic:TERMSRV/"+ serverIP + " /user:" + txtUsername.Text.Trim() + " /pass:" + txtPassword.Text.Trim();
-            rdcProcess.Start();
-
-            rdcProcess.StartInfo.FileName = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\system32\mstsc.exe");
-            rdcProcess.StartInfo.Arguments = "/v " + serverIP;
-            rdcProcess.Start();
         }
         private void setSessionList()
         {
@@ -85,6 +92,7 @@ namespace RemoteDesktopCenter
             }
             else
             {
+                setSessionLog(clsRDPModels);
                 ListViewResizeColumn(lvSession, 99);
             }
             #endregion
@@ -352,18 +360,6 @@ namespace RemoteDesktopCenter
             }
             #endregion
         }
-        private void tmDefault_Tick(object sender, EventArgs e)
-        {
-            if (refreshSecondCount == 0)
-            {
-                setSessionList();
-            }
-            else if(refreshSecondCount >= refreshSecond)
-            {
-                refreshSecondCount = -1;
-            }
-            refreshSecondCount += 1;
-        }
         private void btMinimize_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -371,6 +367,184 @@ namespace RemoteDesktopCenter
         private void btClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+        private void setUsageLog()
+        {
+            if (System.Configuration.ConfigurationManager.AppSettings["enableUsageLog"].ToLower().Trim() == "true")
+            {
+                #region Variable
+                var wsCenter = new wsCenter.ServiceSoapClient();
+                #endregion
+                #region Procedure
+                try
+                {
+                    wsCenter.InsertLogApplicationBySite(
+                        clsGlobal.ApplicationName,
+                        (clsGlobal.ServerMode ? "ServerMode" : "ClientMode"),
+                        System.Configuration.ConfigurationManager.AppSettings["siteCode"],
+                        clsGlobal.WindowsLogonBuilder(),
+                        clsGlobal.IPAddress(),
+                        clsGlobal.HostNameBuilder());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("เกิดข้อผิดพลาดขณะ setUsageLog()" + Environment.NewLine + ex.Message, "Error on setUsageLog", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                #endregion
+            }
+        }
+        private void setSavePassword()
+        {
+            if (txtPassword.Text.Trim() != "")
+            {
+                var clsData = new clsDataNative();
+                var clsSecurity = new clsSecurity();
+                clsData.AppConfigUpdater("savePassword", clsSecurity.Encrypt(txtPassword.Text.Trim()));
+            }
+        }
+        private void getServerList()
+        {
+            #region Variable
+            var clsSQL = new clsSQL(clsGlobal.dbType, clsGlobal.cs);
+            var dt = new DataTable();
+            var strSQL = new StringBuilder();
+            List<string> imageDetails = new List<string>();
+            #endregion
+            #region Procedure
+            lvServerList.Items.Clear();
+            #region SQLQuery
+            strSQL.Append("SELECT ");
+            strSQL.Append("A.Name,A.IPAddress,(SELECT COUNT(UID) FROM sessionlog WHERE (ServerName = A.IPAddress OR ServerName = A.Name) AND StatusFlag = 'A' AND DisconnectWhen IS NULL) ActiveCount ");
+            strSQL.Append("FROM ");
+            strSQL.Append("serverlist A ");
+            strSQL.Append("WHERE ");
+            strSQL.Append("A.StatusFlag = 'A' ");
+            strSQL.Append("ORDER BY ");
+            strSQL.Append("A.Sort;");
+            #endregion
+            dt = clsSQL.Bind(strSQL.ToString());
+            if(dt!=null && dt.Rows.Count > 0)
+            {
+                var imlDefault = new ImageList();
+                var imageName = "";
+                var imagePath = AppDomain.CurrentDomain.BaseDirectory + @"Resource\";
+                imlDefault.ImageSize = new Size(64, 64);
+
+                for(int i = 0; i < dt.Rows.Count; i++)
+                {
+                    if (dt.Rows[i]["ActiveCount"].ToString() == "0")
+                    {
+                        imageName = "icServerFree.png";
+                        imageDetails.Add(dt.Rows[i]["Name"].ToString()+Environment.NewLine+"ว่าง");
+                    }
+                    else
+                    {
+                        if(int.Parse(dt.Rows[i]["ActiveCount"].ToString()) >= maxActiveNumber)
+                        {
+                            imageName = "icServerFull.png";
+                            imageDetails.Add(dt.Rows[i]["Name"].ToString() + Environment.NewLine + "เต็ม");
+                        }
+                        else
+                        {
+                            imageName = "icServerBusy.png";
+                            imageDetails.Add(dt.Rows[i]["Name"].ToString() + Environment.NewLine + "ว่างบางส่วน");
+                        }
+                    }
+
+                    imlDefault.Images.Add(
+                        Image.FromFile(imagePath + imageName)
+                    );
+                }
+
+                lvServerList.LargeImageList = imlDefault;
+                for(int i = 0; i < imageDetails.Count; i++)
+                {
+                    lvServerList.Items.Add(imageDetails[i], i);
+                }
+            }
+            #endregion
+        }
+        private void lvServerList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (txtPassword.Text.Trim() != "")
+            {
+                setSavePassword();
+                foreach (ListViewItem lvi in lvServerList.SelectedItems)
+                {
+                    var items = lvi.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                    if (items.Length >= 2)
+                    {
+                        if (items[1].Contains("เต็ม"))
+                        {
+                            MessageBox.Show("มีผู้ใช้งานเต็มจำนวน โปรดเลือกเซิฟเวอร์อื่น", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        else
+                        { 
+                            var serverName = items[0];
+                            Process rdcProcess = new Process();
+                            rdcProcess.StartInfo.FileName = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\system32\cmdkey.exe");
+                            rdcProcess.StartInfo.Arguments = "/generic:TERMSRV/" + serverName + " /user:" + txtUsername.Text.Trim() + " /pass:" + txtPassword.Text.Trim();
+                            rdcProcess.Start();
+
+                            rdcProcess.StartInfo.FileName = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\system32\mstsc.exe");
+                            rdcProcess.StartInfo.Arguments = "/v " + serverName;
+                            rdcProcess.Start();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                txtPassword.Select();
+                MessageBox.Show("โปรดกรอก Password ก่อน", "Password require.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+        }
+        private void tmDefault_Tick(object sender, EventArgs e)
+        {
+            if (refreshSecondCount == 0)
+            {
+                setSessionList();
+            }
+            else if (refreshSecondCount >= refreshSecond)
+            {
+                refreshSecondCount = -1;
+            }
+            refreshSecondCount += 1;
+        }
+        private void tmClient_Tick(object sender, EventArgs e)
+        {
+            if (refreshSecondCount == 0)
+            {
+                getServerList();
+            }
+            else if (refreshSecondCount >= refreshSecond)
+            {
+                refreshSecondCount = -1;
+            }
+            refreshSecondCount += 1;
+        }
+        private bool getAdminChecker()
+        {
+            #region Variable
+            var result = false;
+            var clsSQL = new clsSQL(clsGlobal.dbType, clsGlobal.cs);
+            var resultSQL = "";
+            #endregion
+            #region Procedure
+            resultSQL = clsSQL.Return("SELECT COUNT(UID) FROM adminlist WHERE LogonName = '"+clsGlobal.WindowsLogonBuilder()+"' AND StatusFlag='A';");
+            if (resultSQL != "" && resultSQL != "0")
+            {
+                result = true;
+            }
+            #endregion
+            return result;
+        }
+        private void btReport_Click(object sender, EventArgs e)
+        {
+            Report report = new Report();
+            report.ShowDialog(this);
         }
     }
 }
