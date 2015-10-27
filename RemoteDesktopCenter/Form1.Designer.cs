@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tbDefault = new System.Windows.Forms.TableLayoutPanel();
             this.tbHeader = new System.Windows.Forms.TableLayoutPanel();
-            this.pbDefault = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.lblHeader = new System.Windows.Forms.Label();
             this.lblSubHeader = new System.Windows.Forms.Label();
@@ -40,11 +39,8 @@
             this.lblCredit = new System.Windows.Forms.Label();
             this.lblFooterDetail = new System.Windows.Forms.Label();
             this.tbMenu = new System.Windows.Forms.TableLayoutPanel();
-            this.btClose = new System.Windows.Forms.Button();
-            this.btMinimize = new System.Windows.Forms.Button();
             this.tbAccount = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.btReport = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
@@ -61,14 +57,19 @@
             this.ttDefault = new System.Windows.Forms.ToolTip(this.components);
             this.tmDefault = new System.Windows.Forms.Timer(this.components);
             this.tmClient = new System.Windows.Forms.Timer(this.components);
+            this.pbDefault = new System.Windows.Forms.PictureBox();
+            this.btClose = new System.Windows.Forms.Button();
+            this.btMinimize = new System.Windows.Forms.Button();
+            this.btReport = new System.Windows.Forms.Button();
+            this.btMove = new System.Windows.Forms.Button();
             this.tbDefault.SuspendLayout();
             this.tbHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tbFooter.SuspendLayout();
             this.tbMenu.SuspendLayout();
             this.tbAccount.SuspendLayout();
             this.tbContent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).BeginInit();
             this.SuspendLayout();
             // 
             // tbDefault
@@ -110,18 +111,6 @@
             this.tbHeader.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbHeader.Size = new System.Drawing.Size(556, 80);
             this.tbHeader.TabIndex = 0;
-            // 
-            // pbDefault
-            // 
-            this.pbDefault.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pbDefault.BackColor = System.Drawing.Color.Transparent;
-            this.pbDefault.Image = global::RemoteDesktopCenter.Properties.Resources.Desktop_icon_64;
-            this.pbDefault.Location = new System.Drawing.Point(8, 8);
-            this.pbDefault.Name = "pbDefault";
-            this.pbDefault.Size = new System.Drawing.Size(64, 64);
-            this.pbDefault.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pbDefault.TabIndex = 0;
-            this.pbDefault.TabStop = false;
             // 
             // tableLayoutPanel2
             // 
@@ -210,13 +199,15 @@
             // 
             this.tbMenu.AutoSize = true;
             this.tbMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(206)))), ((int)(((byte)(255)))));
-            this.tbMenu.ColumnCount = 3;
+            this.tbMenu.ColumnCount = 4;
             this.tbMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tbMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tbMenu.Controls.Add(this.btClose, 2, 0);
-            this.tbMenu.Controls.Add(this.btMinimize, 1, 0);
+            this.tbMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tbMenu.Controls.Add(this.btClose, 3, 0);
+            this.tbMenu.Controls.Add(this.btMinimize, 2, 0);
             this.tbMenu.Controls.Add(this.tbAccount, 0, 0);
+            this.tbMenu.Controls.Add(this.btMove, 1, 0);
             this.tbMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbMenu.Location = new System.Drawing.Point(0, 80);
             this.tbMenu.Margin = new System.Windows.Forms.Padding(0);
@@ -225,42 +216,6 @@
             this.tbMenu.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tbMenu.Size = new System.Drawing.Size(556, 30);
             this.tbMenu.TabIndex = 2;
-            // 
-            // btClose
-            // 
-            this.btClose.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btClose.BackColor = System.Drawing.Color.Transparent;
-            this.btClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btClose.FlatAppearance.BorderSize = 0;
-            this.btClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClose.Image = global::RemoteDesktopCenter.Properties.Resources.icClose1;
-            this.btClose.Location = new System.Drawing.Point(538, 7);
-            this.btClose.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
-            this.btClose.Name = "btClose";
-            this.btClose.Size = new System.Drawing.Size(16, 16);
-            this.btClose.TabIndex = 0;
-            this.btClose.UseVisualStyleBackColor = false;
-            this.btClose.Click += new System.EventHandler(this.btClose_Click);
-            // 
-            // btMinimize
-            // 
-            this.btMinimize.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btMinimize.BackColor = System.Drawing.Color.Transparent;
-            this.btMinimize.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btMinimize.FlatAppearance.BorderSize = 0;
-            this.btMinimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btMinimize.Image = global::RemoteDesktopCenter.Properties.Resources.icMinimize;
-            this.btMinimize.Location = new System.Drawing.Point(520, 7);
-            this.btMinimize.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
-            this.btMinimize.Name = "btMinimize";
-            this.btMinimize.Size = new System.Drawing.Size(16, 16);
-            this.btMinimize.TabIndex = 0;
-            this.btMinimize.UseVisualStyleBackColor = false;
-            this.btMinimize.Click += new System.EventHandler(this.btMinimize_Click);
             // 
             // tbAccount
             // 
@@ -271,6 +226,7 @@
             this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tbAccount.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tbAccount.Controls.Add(this.label1, 0, 0);
             this.tbAccount.Controls.Add(this.btReport, 4, 0);
             this.tbAccount.Controls.Add(this.label2, 2, 0);
@@ -283,7 +239,7 @@
             this.tbAccount.Padding = new System.Windows.Forms.Padding(2);
             this.tbAccount.RowCount = 1;
             this.tbAccount.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbAccount.Size = new System.Drawing.Size(520, 30);
+            this.tbAccount.Size = new System.Drawing.Size(502, 30);
             this.tbAccount.TabIndex = 1;
             // 
             // label1
@@ -295,24 +251,6 @@
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "username";
-            // 
-            // btReport
-            // 
-            this.btReport.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btReport.BackColor = System.Drawing.Color.Transparent;
-            this.btReport.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btReport.FlatAppearance.BorderSize = 0;
-            this.btReport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btReport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btReport.Image = global::RemoteDesktopCenter.Properties.Resources.icReport;
-            this.btReport.Location = new System.Drawing.Point(500, 7);
-            this.btReport.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
-            this.btReport.Name = "btReport";
-            this.btReport.Size = new System.Drawing.Size(16, 16);
-            this.btReport.TabIndex = 0;
-            this.btReport.UseVisualStyleBackColor = false;
-            this.btReport.Click += new System.EventHandler(this.btReport_Click);
             // 
             // label2
             // 
@@ -424,6 +362,96 @@
             this.tmClient.Interval = 1000;
             this.tmClient.Tick += new System.EventHandler(this.tmClient_Tick);
             // 
+            // pbDefault
+            // 
+            this.pbDefault.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pbDefault.BackColor = System.Drawing.Color.Transparent;
+            this.pbDefault.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbDefault.Image = global::RemoteDesktopCenter.Properties.Resources.Desktop_icon_64;
+            this.pbDefault.Location = new System.Drawing.Point(8, 8);
+            this.pbDefault.Name = "pbDefault";
+            this.pbDefault.Size = new System.Drawing.Size(64, 64);
+            this.pbDefault.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbDefault.TabIndex = 0;
+            this.pbDefault.TabStop = false;
+            this.pbDefault.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbDefault_MouseDown);
+            this.pbDefault.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbDefault_MouseMove);
+            this.pbDefault.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbDefault_MouseUp);
+            // 
+            // btClose
+            // 
+            this.btClose.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btClose.BackColor = System.Drawing.Color.Transparent;
+            this.btClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btClose.FlatAppearance.BorderSize = 0;
+            this.btClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btClose.Image = global::RemoteDesktopCenter.Properties.Resources.icClose1;
+            this.btClose.Location = new System.Drawing.Point(538, 7);
+            this.btClose.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
+            this.btClose.Name = "btClose";
+            this.btClose.Size = new System.Drawing.Size(16, 16);
+            this.btClose.TabIndex = 0;
+            this.btClose.UseVisualStyleBackColor = false;
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
+            // 
+            // btMinimize
+            // 
+            this.btMinimize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btMinimize.BackColor = System.Drawing.Color.Transparent;
+            this.btMinimize.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btMinimize.FlatAppearance.BorderSize = 0;
+            this.btMinimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btMinimize.Image = global::RemoteDesktopCenter.Properties.Resources.icMinimize;
+            this.btMinimize.Location = new System.Drawing.Point(520, 7);
+            this.btMinimize.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
+            this.btMinimize.Name = "btMinimize";
+            this.btMinimize.Size = new System.Drawing.Size(16, 16);
+            this.btMinimize.TabIndex = 0;
+            this.btMinimize.UseVisualStyleBackColor = false;
+            this.btMinimize.Click += new System.EventHandler(this.btMinimize_Click);
+            // 
+            // btReport
+            // 
+            this.btReport.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btReport.BackColor = System.Drawing.Color.Transparent;
+            this.btReport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btReport.FlatAppearance.BorderSize = 0;
+            this.btReport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btReport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btReport.Image = global::RemoteDesktopCenter.Properties.Resources.icReport;
+            this.btReport.Location = new System.Drawing.Point(482, 7);
+            this.btReport.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
+            this.btReport.Name = "btReport";
+            this.btReport.Size = new System.Drawing.Size(16, 16);
+            this.btReport.TabIndex = 0;
+            this.btReport.UseVisualStyleBackColor = false;
+            this.btReport.Click += new System.EventHandler(this.btReport_Click);
+            // 
+            // btMove
+            // 
+            this.btMove.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btMove.BackColor = System.Drawing.Color.Transparent;
+            this.btMove.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btMove.FlatAppearance.BorderSize = 0;
+            this.btMove.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btMove.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btMove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btMove.Image = global::RemoteDesktopCenter.Properties.Resources.icMove;
+            this.btMove.Location = new System.Drawing.Point(502, 7);
+            this.btMove.Margin = new System.Windows.Forms.Padding(0, 2, 2, 2);
+            this.btMove.Name = "btMove";
+            this.btMove.Size = new System.Drawing.Size(16, 16);
+            this.btMove.TabIndex = 0;
+            this.btMove.UseVisualStyleBackColor = false;
+            this.btMove.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btMove_MouseDown);
+            this.btMove.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btMove_MouseMove);
+            this.btMove.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btMove_MouseUp);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -442,7 +470,6 @@
             this.tbDefault.PerformLayout();
             this.tbHeader.ResumeLayout(false);
             this.tbHeader.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tbFooter.ResumeLayout(false);
@@ -452,6 +479,7 @@
             this.tbAccount.ResumeLayout(false);
             this.tbAccount.PerformLayout();
             this.tbContent.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbDefault)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -489,6 +517,7 @@
         private System.Windows.Forms.ListView lvServerList;
         private System.Windows.Forms.Timer tmClient;
         private System.Windows.Forms.Button btReport;
+        private System.Windows.Forms.Button btMove;
     }
 }
 

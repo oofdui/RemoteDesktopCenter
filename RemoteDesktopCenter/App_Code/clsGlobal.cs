@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices.AccountManagement;
+using System.DirectoryServices;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Web;
+using System.Security.Principal;
 
 /// <summary>
 /// Global Variable ตัวแปรครอบจักรวาล
@@ -166,6 +169,14 @@ public static class clsGlobal
         }
         catch (Exception) { }
         #endregion
+        return result;
+    }
+    static public List<string> WindowsLogonGroupBuilder(string userName)
+    {
+        var pc = new PrincipalContext(ContextType.Domain);
+        var src = UserPrincipal.FindByIdentity(pc, userName).GetGroups(pc);
+        var result = new List<string>();
+        src.ToList().ForEach(sr => result.Add(sr.SamAccountName));
         return result;
     }
 }

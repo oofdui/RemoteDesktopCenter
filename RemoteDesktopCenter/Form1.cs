@@ -16,6 +16,10 @@ namespace RemoteDesktopCenter
         int refreshSecond = int.Parse(System.Configuration.ConfigurationManager.AppSettings["refreshSecond"]);
         int refreshSecondCount = 0;
         int maxActiveNumber = int.Parse(System.Configuration.ConfigurationManager.AppSettings["maxActiveNumber"]);
+
+        private bool dragging = false;
+        private Point dragCursorPoint;
+        private Point dragFormPoint;
         #endregion
         public Form1()
         {
@@ -37,6 +41,7 @@ namespace RemoteDesktopCenter
             lblFooterDetail.Text = string.Format("Server : {0}", clsSQL.getAppSettingServerName(clsGlobal.cs));
             ttDefault.SetToolTip(btMinimize, "ย่อหน้าต่าง");
             ttDefault.SetToolTip(btClose, "ออกจากโปรแกรม");
+            ttDefault.SetToolTip(btMove, "ย้ายตำแหน่งหน้าต่าง");
             ttDefault.SetToolTip(btReport, "ดูรายงาน");
             if (!getAdminChecker()) btReport.Visible = false;
             txtUsername.Text = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName+@"\"+clsGlobal.WindowsLogonBuilder();
@@ -545,6 +550,42 @@ namespace RemoteDesktopCenter
         {
             Report report = new Report();
             report.ShowDialog(this);
+        }
+        private void pbDefault_MouseDown(object sender, MouseEventArgs e)
+        {
+            dragging = true;
+            dragCursorPoint = Cursor.Position;
+            dragFormPoint = this.Location;
+        }
+        private void pbDefault_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+                this.Location = Point.Add(dragFormPoint, new Size(dif));
+            }
+        }
+        private void pbDefault_MouseUp(object sender, MouseEventArgs e)
+        {
+            dragging = false;
+        }
+        private void btMove_MouseDown(object sender, MouseEventArgs e)
+        {
+            dragging = true;
+            dragCursorPoint = Cursor.Position;
+            dragFormPoint = this.Location;
+        }
+        private void btMove_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+                this.Location = Point.Add(dragFormPoint, new Size(dif));
+            }
+        }
+        private void btMove_MouseUp(object sender, MouseEventArgs e)
+        {
+            dragging = false;
         }
     }
 }
