@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace RemoteDesktopCenter
 {
@@ -53,11 +54,28 @@ namespace RemoteDesktopCenter
             }
             if (clsGlobal.ServerMode)
             {
-                txtUsername.Enabled = false;txtPassword.Enabled = false;
-                lvServerList.Visible = false;
-                tbContent.RowStyles[1].Height = 0;
-                tmDefault.Enabled = true;
-                tmDefault.Start();
+                try
+                {
+                    txtUsername.Enabled = false; txtPassword.Enabled = false;
+                    lvServerList.Visible = false;
+                    tbContent.RowStyles[1].Height = 0;
+                    tmDefault.Enabled = true;
+                    tmDefault.Start();
+                }
+                catch(Exception ex)
+                {
+                    try
+                    {
+                        wsDefault.ServiceSoapClient wsDefault = new wsDefault.ServiceSoapClient();
+                        wsDefault.MailSend(System.Configuration.ConfigurationManager.AppSettings["mailTo"],
+                            clsGlobal.ApplicationName,
+                            "<h2>" + clsGlobal.IPAddress() + "</h2>" + ex.Message,
+                            "AutoSystem@glsict.com",
+                            System.Configuration.ConfigurationManager.AppSettings["siteCode"] + " : " + clsGlobal.ApplicationName,
+                            "", "", "", false);
+                    }
+                    catch (Exception) { }
+                }
             }
             else
             {
@@ -487,13 +505,23 @@ namespace RemoteDesktopCenter
                         else
                         { 
                             var serverName = items[0];
+                            var fi = new FileInfo(@"Resource\connect.rdp");
+                            if (fi.Exists) fi.Delete();
+                            var sw = new StreamWriter(fi.FullName, true, System.Text.Encoding.UTF8);
+                            var strValue = new StringBuilder();
+                            strValue.Append(System.Configuration.ConfigurationManager.AppSettings["rdpParameter"].Replace("[serverName]", serverName));
+                            sw.WriteLine(strValue.ToString());
+                            strValue.Length = 0; strValue.Capacity = 0;
+                            sw.Close();
+
                             Process rdcProcess = new Process();
                             rdcProcess.StartInfo.FileName = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\system32\cmdkey.exe");
                             rdcProcess.StartInfo.Arguments = "/generic:TERMSRV/" + serverName + " /user:" + txtUsername.Text.Trim() + " /pass:" + txtPassword.Text.Trim();
                             rdcProcess.Start();
 
                             rdcProcess.StartInfo.FileName = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\system32\mstsc.exe");
-                            rdcProcess.StartInfo.Arguments = "/v " + serverName;
+                            //rdcProcess.StartInfo.Arguments = "/f /v " + serverName + "";
+                            rdcProcess.StartInfo.Arguments = fi.FullName;
                             rdcProcess.Start();
                         }
                     }
@@ -508,15 +536,32 @@ namespace RemoteDesktopCenter
         }
         private void tmDefault_Tick(object sender, EventArgs e)
         {
-            if (refreshSecondCount == 0)
+            try
             {
-                setSessionList();
+                if (refreshSecondCount == 0)
+                {
+                    setSessionList();
+                }
+                else if (refreshSecondCount >= refreshSecond)
+                {
+                    refreshSecondCount = -1;
+                }
+                refreshSecondCount += 1;
             }
-            else if (refreshSecondCount >= refreshSecond)
+            catch(Exception ex)
             {
-                refreshSecondCount = -1;
+                try
+                {
+                    wsDefault.ServiceSoapClient wsDefault = new wsDefault.ServiceSoapClient();
+                    wsDefault.MailSend(System.Configuration.ConfigurationManager.AppSettings["mailTo"],
+                        clsGlobal.ApplicationName,
+                        "<h2>"+clsGlobal.IPAddress()+"</h2>"+ex.Message,
+                        "AutoSystem@glsict.com",
+                        System.Configuration.ConfigurationManager.AppSettings["siteCode"] + " : " + clsGlobal.ApplicationName,
+                        "", "", "", false);
+                }
+                catch (Exception) { }
             }
-            refreshSecondCount += 1;
         }
         private void tmClient_Tick(object sender, EventArgs e)
         {
