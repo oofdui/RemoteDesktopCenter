@@ -1,5 +1,6 @@
 # RemoteDesktopCenter
 ### แสดงรายชื่อเซิฟเวอร์ที่เปิดให้ใช้ RemoteDesktop พร้อมกับแสดงสถานะ Session ในการเข้าใช้ (ว่าง/ไม่ว่าง) และ บันทึก Log การเข้าใช้งาน
+![alt tag](https://github.com/oofdui/RemoteDesktopCenter/blob/master/SS.png)
 * v.1.3
 	* เปลี่ยนวิธีการอ้าง Path ของไฟล์ Profile ใหม่
 	* ดัก Error ในขั้นตอนของการเรียกไฟล์ Profile และ เรียก RemoteDesktop ผ่าน Command
