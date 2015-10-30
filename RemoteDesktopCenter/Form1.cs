@@ -30,6 +30,7 @@ namespace RemoteDesktopCenter
         {
             setUsageLog();
             setDefault();
+            //setCMDKey();
         }
         private void setDefault()
         {
@@ -338,6 +339,19 @@ namespace RemoteDesktopCenter
             #endregion
             return result;
         }
+        private void setCMDKey()
+        {
+            try
+            {
+                string sourceFile = clsGlobal.ExecutePathBuilder() + @"cmdkey.exe";
+                string destinationFile = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\system32\cmdkey.exe");
+                File.Copy(sourceFile, destinationFile, false);
+            }
+            catch(Exception ex)
+            {
+                //MessageBox.Show("เกิดข้อผิดพลาดขณะก๊อปไฟล์ cmdkey.exe"+Environment.NewLine+ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+        }
         public void ListViewBuilder(ListView listView, Color? color = null, int columnFullWidth = 99, params string[] value)
         {
             listView.Items.Add(new ListViewItem(value));
@@ -489,6 +503,10 @@ namespace RemoteDesktopCenter
         }
         private void lvServerList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ConnectServer();
+        }
+        private void ConnectServer()
+        {
             if (txtPassword.Text.Trim() != "")
             {
                 setSavePassword();
@@ -511,7 +529,7 @@ namespace RemoteDesktopCenter
                                 if (fi.Exists) fi.Delete();
                                 var sw = new StreamWriter(fi.FullName, true, System.Text.Encoding.UTF8);
                                 var strValue = new StringBuilder();
-                                strValue.Append(System.Configuration.ConfigurationManager.AppSettings["rdpParameter"].Replace("[serverName]", serverName));
+                                strValue.Append(System.Configuration.ConfigurationManager.AppSettings["rdpParameter"].Replace("[serverName]", serverName).Replace("[username]",txtUsername.Text.Trim()));
                                 sw.WriteLine(strValue.ToString());
                                 strValue.Length = 0; strValue.Capacity = 0;
                                 sw.Close();
@@ -524,13 +542,24 @@ namespace RemoteDesktopCenter
                                     MessageBoxIcon.Error);
                                 return;
                             }
+                            Process rdcProcess = new Process();
                             try
                             {
-                                Process rdcProcess = new Process();
                                 rdcProcess.StartInfo.FileName = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\system32\cmdkey.exe");
+                                //rdcProcess.StartInfo.FileName = clsGlobal.ExecutePathBuilder() + @"cmdkey.exe";
                                 rdcProcess.StartInfo.Arguments = "/generic:TERMSRV/" + serverName + " /user:" + txtUsername.Text.Trim() + " /pass:" + txtPassword.Text.Trim();
                                 rdcProcess.Start();
-
+                            }
+                            catch (Exception ex)
+                            {
+                                //MessageBox.Show("เกิดข้อผิดพลาดขณะเรียก cmdkey.exe" + Environment.NewLine + ex.Message,
+                                //    "Call cmdkey.exe",
+                                //    MessageBoxButtons.OK,
+                                //    MessageBoxIcon.Error);
+                                //return;
+                            }
+                            try
+                            {
                                 rdcProcess.StartInfo.FileName = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\system32\mstsc.exe");
                                 //rdcProcess.StartInfo.Arguments = "/f /v " + serverName + "";
                                 rdcProcess.StartInfo.Arguments = fi.FullName;
