@@ -503,28 +503,50 @@ namespace RemoteDesktopCenter
                             return;
                         }
                         else
-                        { 
+                        {
                             var serverName = items[0];
-                            var fi = new FileInfo(@"Resource\connect.rdp");
-                            if (fi.Exists) fi.Delete();
-                            var sw = new StreamWriter(fi.FullName, true, System.Text.Encoding.UTF8);
-                            var strValue = new StringBuilder();
-                            strValue.Append(System.Configuration.ConfigurationManager.AppSettings["rdpParameter"].Replace("[serverName]", serverName));
-                            sw.WriteLine(strValue.ToString());
-                            strValue.Length = 0; strValue.Capacity = 0;
-                            sw.Close();
+                            var fi = new FileInfo(clsGlobal.ExecutePathBuilder() + @"Resource\connect.rdp");
+                            try
+                            {
+                                if (fi.Exists) fi.Delete();
+                                var sw = new StreamWriter(fi.FullName, true, System.Text.Encoding.UTF8);
+                                var strValue = new StringBuilder();
+                                strValue.Append(System.Configuration.ConfigurationManager.AppSettings["rdpParameter"].Replace("[serverName]", serverName));
+                                sw.WriteLine(strValue.ToString());
+                                strValue.Length = 0; strValue.Capacity = 0;
+                                sw.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("เกิดข้อผิดพลาดขณะสร้าง RemoteProfile" + Environment.NewLine + ex.Message,
+                                    "Create Remote Profile",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                                return;
+                            }
+                            try
+                            {
+                                Process rdcProcess = new Process();
+                                rdcProcess.StartInfo.FileName = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\system32\cmdkey.exe");
+                                rdcProcess.StartInfo.Arguments = "/generic:TERMSRV/" + serverName + " /user:" + txtUsername.Text.Trim() + " /pass:" + txtPassword.Text.Trim();
+                                rdcProcess.Start();
 
-                            Process rdcProcess = new Process();
-                            rdcProcess.StartInfo.FileName = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\system32\cmdkey.exe");
-                            rdcProcess.StartInfo.Arguments = "/generic:TERMSRV/" + serverName + " /user:" + txtUsername.Text.Trim() + " /pass:" + txtPassword.Text.Trim();
-                            rdcProcess.Start();
-
-                            rdcProcess.StartInfo.FileName = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\system32\mstsc.exe");
-                            //rdcProcess.StartInfo.Arguments = "/f /v " + serverName + "";
-                            rdcProcess.StartInfo.Arguments = fi.FullName;
-                            rdcProcess.Start();
+                                rdcProcess.StartInfo.FileName = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\system32\mstsc.exe");
+                                //rdcProcess.StartInfo.Arguments = "/f /v " + serverName + "";
+                                rdcProcess.StartInfo.Arguments = fi.FullName;
+                                rdcProcess.Start();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("เกิดข้อผิดพลาดขณะเรียก mstsc.exe" + Environment.NewLine + ex.Message,
+                                    "Call mstsc.exe",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                     }
+                    break;
                 }
             }
             else
